@@ -15,7 +15,7 @@ jobs:
         run: npm ci
       - name: publish message to another job
         id: publish
-        run: publishMessage=hello from build message" >> "$GITHUB_OUTPUT"
+        run: echo "publishMessage=hello from build message" >> $GITHUB_OUTPUT
       - name: Build website
         run: npm run build
       - name: Upload artifacts

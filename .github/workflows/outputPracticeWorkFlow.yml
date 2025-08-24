@@ -13,11 +13,11 @@ jobs:
         uses: actions/checkout@v3
       - name: Load and cache dependencies
         run: npm ci
-      - name: Build website
+      - name: publish message to another job
         id: publish
-        run: |
-          npm run build
-          run:  "publishMessage=hello from build message" >> "$GITHUB_OUTPUT"
+        run: publishMessage=hello from build message" >> "$GITHUB_OUTPUT"
+      - name: Build website
+        run: npm run build
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:

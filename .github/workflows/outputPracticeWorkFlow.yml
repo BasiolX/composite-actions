@@ -34,13 +34,18 @@ jobs:
   build:
     needs: test
     runs-on: ubuntu-latest
+    outputs:
+      script-file: ${{ steps.publish.outputs.publishMessage }}
     steps:
       - name: Get code
         uses: actions/checkout@v3
       - name: Load and cache dependencies
         uses: ./.github/actions/cached-deps
       - name: Build website
-        run: npm run build
+        id: publish
+        run: |
+          npm run build
+          run:  "publishMessage=hello from build message" >> "$GITHUB_OUTPUT"
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -50,6 +55,14 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: output project status from another job
+        run: |
+          echo "${{needs.build.outputs.script-file}}"
+          echo "${{needs.build.outputs.script-file}}"
+          echo "${{needs.build.outputs.script-file}}"
+          echo "${{needs.build.outputs.script-file}}"
+          echo "${{needs.build.outputs.script-file}}"
+          echo "${{needs.build.outputs.script-file}}"
       - name: Get code
         uses: actions/checkout@v3
       - name: Get build artifacts
